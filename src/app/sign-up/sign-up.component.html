@@ -1,0 +1,12 @@
+<form class="form-signup" #f="ngForm" (ngSubmit)="signUp(f.value)">
+  <h2 class="form-signup-heading">Please sign up</h2>
+  <label for="inputuserName" class="sr-only">Enter Username</label>
+  <input type="text" id="inputuserName" name="username" ngModel class="form-control" placeholder="User Name" required>
+  <label for="inputEmail" class="sr-only">Email address</label>
+  <input type="email" id="inputEmail" name="email" ngModel class="form-control" placeholder="Email address" required autofocus>
+  <label for="inputPassword" class="sr-only">Password</label>
+  <input type="password" id="inputPassword" name="password" ngModel class="form-control" placeholder="Password" required>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button> 
+  <!-- disable -->
+</form>
+

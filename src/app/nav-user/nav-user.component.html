@@ -1,0 +1,28 @@
+<!-- <div class="row">
+  <div class="col-md-12">
+     <nav class="navbar">
+      <a class="logo conduit"  routerLink="/home" routerLinkActive="active" >Conduit</a>
+    <div class="navr">
+        <a routerLink="/home" routerLinkActive="active">Home</a>&nbsp;&nbsp;
+        <a routerLink="/new-article" routerLinkActive="active"><i class="far fa-edit"></i>New Article</a>&nbsp;&nbsp;
+        <a routerLink="/settings" routerLinkActive="active"><i class="fas fa-cog"></i>Settings</a>&nbsp;&nbsp;
+        <img class="user-pic" [src]="image">
+        <a (click)="viewProfile()">{{username}}</a>  
+  </div>
+  </nav>
+  </div>
+  </div> -->
+
+  <nav class="navbar navbar-light">
+    <a class="navbar-brand" routerLink="/">stoic</a>
+
+    <div class="navbar-expand ml-auto navbar-nav">
+     <div class="navbar-nav">
+      <a class="nav-item nav-link active" routerLink="/home-user/your-feed">Home</a>
+      <a class="nav-item nav-link active" routerLink="/new-article">New Article</a>
+      <a class="nav-item nav-link active" routerLink="/settings">Settings</a>
+      <a class="nav-item nav-link active" (click)="viewProfile()">{{username}}</a> 
+     </div>
+
+  </div>
+</nav>

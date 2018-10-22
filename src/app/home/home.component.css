@@ -1,0 +1,11 @@
+.banner{
+    background-color: rgb(22, 125, 221);
+    text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    font-weight: 700 !important;
+    text-align: center;
+    font-size: 3.5rem;
+    padding-bottom: 0.5rem;
+}
+.nav-link{
+    cursor: pointer;
+}

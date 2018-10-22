@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-md-9">
+      <ul class="demo" *ngIf="selected">
+        <li class="article-preview" *ngFor="let article of selected.articles">
+          <div class="article-meta">
+            <img [src]="article.author.image"  height="25px" width="25px" />
+            <div class="info">
+              <a class="author" (click)="callProfile(article.author.username)">{{article.author.username}}</a>
+              <span class="date">{{article.createdAt | date}}</span>
+            </div>
+            <button (click)="callFavorite(article.slug)" *ngIf="!article.favorited" class="btn btn-sm btn-outline-success float-right">
+              <span>&hearts;{{article.favoritesCount}}</span>
+            </button>
+            <button (click)="callUnFavorite(article.slug)" *ngIf="article.favorited" class="btn btn-sm btn-success float-right">
+              <span>&hearts;{{article.favoritesCount}}</span>
+            </button>
+          </div>
+          <div class="tagdiv">
+            <h3>{{article.title}}</h3>
+            <p style="margin-top: 0px;">{{article.description}}</p>
+            <ul>
+                <li *ngFor="let taglist of article.tagList" class="tag-default tag-pill tag-outline">
+                    <a style="cursor:pointer" (click)="getArticleDetails(article.slug)">{{taglist}}</a>&nbsp;
+              </li>
+            </ul>
+            <a class="readmore" (click)="getArticleDetails(article.slug)">Read more...</a>
+          </div>
+        </li>
+
+
+      </ul>
+    </div>
+    <div class="col-md-3">
+      <app-showtags (listTag)=clickonTag($event)></app-showtags>
+    </div>
+  </div>
+  <div *ngIf="articleCount">
+    <app-page [articleCount]=itemPages (listNumberclick)=clickonList($event)></app-page>
+  </div>

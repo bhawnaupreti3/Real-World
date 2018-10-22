@@ -1,0 +1,51 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class YourFeedService {
+  public apiUrl: string = 'https://conduit.productionready.io/api/';
+
+  constructor(private http: HttpClient) { }
+
+  yourFeedArticles() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Token ' + localStorage.getItem('Token')
+      })
+    };
+    var a = this.http.get(`${this.apiUrl}articles/feed`, httpOptions);
+    return a;
+  }
+  makeFeedsRequestonPages(offset) {
+    return this.http.get(`${this.apiUrl}articles?limit=10&offset=${offset}`)
+  }
+  getTagDetails(e) {
+    return this.http.get(`${this.apiUrl}articles?tag=${e}`)
+  }
+  globalFeedArticles() {
+   
+    return this.http.get(`${this.apiUrl}articles`);
+
+  }
+  makeFavorite(slug) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        
+        'Authorization': 'Token ' + localStorage.getItem('Token')
+      })
+    };
+    return this.http.post(`${this.apiUrl}articles/${slug}/favorite`,JSON.stringify(slug),httpOptions);
+  }
+  makeUnFavorite(slug) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        
+        'Authorization': 'Token ' + localStorage.getItem('Token')
+      })
+    };
+    return this.http.delete(`${this.apiUrl}articles/${slug}/favorite`,httpOptions);
+   }
+  
+}

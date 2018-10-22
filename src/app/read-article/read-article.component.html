@@ -1,0 +1,131 @@
+
+<div *ngIf="token"><app-nav-user></app-nav-user></div>
+<div *ngIf="!token"><app-navbar></app-navbar></div>
+<div class="" *ngIf="selected">
+  <div class="banner">
+    <div class="container">
+      <div class="title">
+        <h1>{{selected.article.title}}</h1>
+      </div>
+      <div class="article-meta">
+        <img [src]="selected.article.author.image"  height="25px" width="25px" />
+        <div class="info">
+          <a class="author" (click)="callProfile(selected.article.author.username)">{{selected.article.author.username}}</a>
+          <span class="date">{{selected.article.createdAt| date}}</span>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div *ngIf="match">
+      <button class="btn btn-outline btn-sm " (click)="editArticle()"><i class="fas fa-pen"></i>Edit Article </button>
+      &nbsp;&nbsp;<button class="btn btn-outline-danger btn-sm " (click)="deleteArticle()"><i class="fas fa-trash-alt"></i>Delete
+        Article</button>
+    </div>
+    <div *ngIf="!match">
+        <button *ngIf="!following" class="btn btn-outline btn-sm " (click)="followUser()"><i
+          class="far fa-star"></i> Follow {{selected.article.author.username}} </button>
+          <button *ngIf="following" class="btn  btn-sm " (click)="UnfollowUser()"><i class="far fa-star"></i>
+            UnFollow {{selected.article.author.username}} </button>
+            &nbsp;&nbsp; 
+     <button *ngIf="!selected.article.favorited" class="btn btn-outline-danger btn-sm " (click)="favoriteArticle()"><i
+          class="far fa-heart"></i>Favourite {{selected.article.favoritesCount}}</button>
+  <button *ngIf="selected.article.favorited" class="btn btn-danger btn-sm " (click)="UnfavoriteArticle()"><i
+          class="far fa-heart"></i>UnFavourite {{selected.article.favoritesCount}}</button>
+    </div>
+  </div>
+  <div class="container page ">
+    <p id="divbody">
+      {{selected.article.body}}
+    </p>
+    <div class="tagdiv">
+      <ul>
+        <li *ngFor="let taglist of selected.article.tagList">
+          <p>{{taglist}}&nbsp;&nbsp;</p> 
+        </li>
+      </ul>
+    </div>
+    <hr>
+    <div class="article-actions">
+
+      <div class="article-meta ">
+        <img [src]="selected.article.author.image"  height="25px" width="25px" />
+        <div class="info">
+          <a class="author" (click)="callProfile(selected.article.author.username)" style="color:#5cb85c">{{selected.article.author.username}}</a>
+          <span class="date">{{selected.article.createdAt | date}}</span>
+          <br>
+        </div>
+        <div *ngIf="match">
+          <button class="btn btn-outline btn-sm " (click)="editArticle()"><i class="fas fa-pen"></i>Edit Article
+          </button>
+          &nbsp;&nbsp;<button class="btn btn-outline-danger btn-sm " (click)="deleteArticle()"><i class="fas fa-trash-alt"></i>Delete
+            Article</button>
+        </div>
+        <div *ngIf="!match">
+            <button *ngIf="!following" class="btn btn-outline btn-sm " (click)="followUser()"><i
+              class="far fa-star"></i> Follow {{selected.article.author.username}} </button>
+              <button *ngIf="following" class="btn  btn-sm " (click)="UnfollowUser()"><i class="far fa-star"></i>
+                UnFollow {{selected.article.author.username}} </button>
+                &nbsp;&nbsp;
+         <button *ngIf="!selected.article.favorited" class="btn btn-outline-danger btn-sm " (click)="favoriteArticle()"><i
+              class="far fa-heart"></i>Favourite{{selected.article.favoritesCount}}</button>
+          <button *ngIf="selected.article.favorited" class="btn btn-danger btn-sm " (click)="UnfavoriteArticle()"><i
+              class="far fa-heart"></i>UnFavourite{{selected.article.favoritesCount}}</button>
+        </div>
+      </div>
+
+    </div>
+    <br><br>
+    <div class="row">
+      <div class="col-md-3"></div>
+
+      <div class="col-md-6" *ngIf="token">
+        <form #c="ngForm" (ngSubmit)="addComment(c.value)">
+          <div class="card">
+            <div class="card-block">
+              <textarea class="form-control" placeholder="Write a comment.." name="body" rows=4 cols=70 ngModel></textarea>
+            </div>
+            <div class="card-footer cimage">
+              <img class="float-left img-circle" [src]="selected.article.author.image" alt="No Image" height="25px"
+                width="25px" />
+              <button type="submit" class=" btn btn-sm btn-success float-right">Post Comment</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-6 divsignup" *ngIf="!token">
+        <p>
+          <a routerLink="/login">Sign In </a> or <a routerLink="/sign-up">Sign Up </a>
+          to add comment to this article.
+        </p>
+      </div>
+      <div class="col-md-3"></div>
+
+    </div>
+
+
+    <div *ngIf="comments">
+
+
+      <li *ngFor="let comment of comments.comments">
+        <div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md-6">
+            <div class="card ">
+              <div class="card-block ">
+                <p class="cbody">{{comment.body}}</p>
+              </div>
+              <div class="card-footer cimage">
+                <img class=" float-left" [src]="comment.author.image" alt="No Image" height="25px" width="25px" />
+                <a (click)="callProfile(comment.author.username)"><span>{{comment.author.username}}</span></a>
+                <span>{{comment.createdAt | date}}</span>
+                <a class="float-right" (click)="deleteComment(comment.id)">Delete</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3"></div>
+        </div>
+      </li>
+
+    </div>
+  </div>
+</div>

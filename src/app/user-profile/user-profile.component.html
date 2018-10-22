@@ -1,0 +1,68 @@
+<div *ngIf="token">
+    <app-nav-user></app-nav-user>
+  </div>
+  <div *ngIf="!token">
+    <app-navbar></app-navbar>
+  </div>
+  <div class="profile-page" *ngIf="user">
+    <div class="user-info">
+        <img *ngIf="user.profile.image" class="user-image" [src]="user.profile.image"  height="25px" width="25px" />
+        <img *ngIf="!user.profile.image" class="user-image" ng-src="user.profile.image"  height="25px" width="25px" />    <h4>{{user.profile.username}}</h4>
+      <p>{{user.profile.bio}}</p>
+      <div class="setbutton"  *ngIf="match">
+        <button class="float-right btn btn-sm btn-outline-secondary action-btn" routerLink="/settings"><i class="fas fa-cog"></i>Edit
+          Profile Settings</button>
+        </div>
+        <div class="setbutton"  *ngIf="!match && userToken">   
+        <button (click)="followUser()" class="float-right btn btn-sm btn-outline-secondary" ><i class="fa fa-plus"></i>
+          Follow {{username}} </button>
+        <button (click)="UnfollowUser()" class="float-right btn  btn-sm btn-secondary" ><i class="fa fa-minus"></i>
+          UnFollow {{username}} </button>
+        &nbsp;&nbsp;
+      </div>
+      <div class="setbutton"  *ngIf="!match && !userToken">   
+          <button (click)="callSignup()" class="float-right btn btn-sm btn-outline-secondary" ><i class="fa fa-plus"></i>
+            Follow {{username}} </button>
+        </div>
+        
+    </div>
+    <div class="container">
+      <div class="nav ">
+        <nav>
+          <a (click)="callUserArticles()">My Articles</a>&nbsp;&nbsp;&nbsp;
+          <a (click)="callFavoriteArticles()">Favorite Articles</a>
+        </nav>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="demo" *ngIf="articles">
+            <li class="article-preview" *ngFor="let article of articles.articles">
+              <div class="article-meta">
+                  <img *ngIf="article.author.image" [src]="article.author.image"  height="25px" width="25px" />
+                  <img *ngIf="!article.author.image" ng-src="article.author.image"  height="25px" width="25px" />
+                                <div class="info">
+                  <a class="author" (click)="callProfile(article.author.username)">{{article.author.username}}</a>
+                  <span class="date">{{article.createdAt | date}}</span>
+                </div>
+                <button class="btn btn-sm btn-outline-primary float-right">
+                  <span>&hearts;{{article.favoritesCount}}</span>
+                </button>
+              </div>
+              <div>
+                <h3>{{article.title}}</h3>
+                <p style="margin-top: 0px;">{{article.description}}</p>
+                <ul>
+                  <li *ngFor="let taglist of article.tagList">
+                    <span>{{taglist}}</span>&nbsp;
+                  </li>
+                </ul>
+                <a class="readmore" (click)="getArticleDetails(article.slug)">Read more...</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div *ngIf="articleCount">
+        <app-page [articleCount]=itemPages (listNumberclick)=clickonList($event)></app-page>
+      </div>
+    </div>
